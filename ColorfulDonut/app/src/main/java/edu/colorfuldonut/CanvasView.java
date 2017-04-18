@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by DavidKramer on 4/17/17.
@@ -25,7 +26,13 @@ public class CanvasView extends View {
 
     protected void init() {
         m_paint = new Paint();
-        m_bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+
+        // some reason getWidth() has been returning zero, which will crash app
+        // if we create a 0 sized bitmap
+        int width =  getWidth() == 0 ? 1920 : getWidth();
+        int height = getHeight() == 0 ? 1080 : getHeight();
+
+        m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
     }
 
@@ -34,7 +41,7 @@ public class CanvasView extends View {
     }
 
     public void clear() {
-
+        init();
     }
 
     public Bitmap getBitmap() {
@@ -47,8 +54,9 @@ public class CanvasView extends View {
     }
 
     public boolean onTouchEvent(MotionEvent e) {
-        m_currentTool.handleInput(e, this);
-
+        if (m_currentTool != null) {
+            m_currentTool.handleInput(e, this);
+        }
         // TODO what boolean should we really be returning??
         return false;
     }
