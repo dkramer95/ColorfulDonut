@@ -1,17 +1,16 @@
 package edu.colorfuldonut;
 
-import android.graphics.Paint;
 import android.view.MotionEvent;
 
 /**
  * Created by DavidKramer on 4/17/17.
  */
 
-public abstract class Tool extends Paint {
+public abstract class Tool {
     protected String m_name;
 
-    public Tool(String name) {
-        m_name = name;
+    public Tool() {
+
     }
 
     public abstract void handleInput(MotionEvent e, CanvasView canvasView);
