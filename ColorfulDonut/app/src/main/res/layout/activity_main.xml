@@ -15,9 +15,11 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="8dp">
 
-        <LinearLayout
+        <edu.colorfuldonut.ToolBar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+<<<<<<< HEAD
             android:background="@android:color/holo_blue_dark"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,6 +65,11 @@
                     android:textColor="@color/White" />
             </LinearLayout>
         </LinearLayout>
+=======
+            android:background="@color/toolbarBG"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+>>>>>>> origin/master
 
         <edu.colorfuldonut.CanvasView
             android:id="@+id/canvas"
