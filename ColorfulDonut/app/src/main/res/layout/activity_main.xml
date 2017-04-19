@@ -15,53 +15,13 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="8dp">
 
-        <LinearLayout
+        <edu.colorfuldonut.ToolBar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@android:color/holo_blue_dark"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            tools:layout_editor_absoluteX="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_blue_light"
-                    android:text="Brush"
-                    android:textColor="@color/White" />
-
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_blue_light"
-                    android:text="Paint Bucket"
-                    android:textColor="@color/White" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_blue_light"
-                    android:onClick="clearButtonClicked"
-                    android:text="Clear"
-                    android:textColor="@color/White" />
-            </LinearLayout>
-        </LinearLayout>
+            android:background="@color/toolbarBG"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <edu.colorfuldonut.CanvasView
             android:id="@+id/canvas"

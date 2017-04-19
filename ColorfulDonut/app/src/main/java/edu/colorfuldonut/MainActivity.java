@@ -6,13 +6,19 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    public static ToolFactory toolFactory;
+
     protected CanvasView m_canvasView;
+    protected ToolBar m_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolFactory = new ToolFactory();
         m_canvasView = (CanvasView)findViewById(R.id.canvas);
+        m_toolbar = (ToolBar)findViewById(R.id.toolbar);
+        m_toolbar.init();
     }
 
     public void clearButtonClicked(View view) {
