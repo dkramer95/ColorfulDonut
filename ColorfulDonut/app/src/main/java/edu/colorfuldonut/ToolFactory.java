@@ -9,7 +9,7 @@ public class ToolFactory {
     public Tool create(String type) {
         switch (type) {
             case "Brush":
-                return new Brush();
+//                return new Brush(); // uncomment when we have the new Brush
             case "Paint Bucket":
                 return new PaintBucket();
         }
