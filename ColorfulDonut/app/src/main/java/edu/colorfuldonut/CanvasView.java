@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ public class CanvasView extends View {
     protected Canvas m_canvas;
     protected Bitmap m_bitmap;
     protected Paint m_paint;
+    protected Path m_path;
 
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -26,6 +28,7 @@ public class CanvasView extends View {
 
     protected void init() {
         m_paint = new Paint();
+        m_path = new Path();
 
         // some reason getWidth() has been returning zero, which will crash app
         // if we create a 0 sized bitmap
@@ -50,15 +53,17 @@ public class CanvasView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawBitmap(m_bitmap, 0, 0, m_paint);
+        //canvas.drawBitmap(m_bitmap, 0, 0, m_paint);
+        canvas.drawPath(m_path, m_paint);
     }
 
     public boolean onTouchEvent(MotionEvent e) {
+        boolean b = false;
         if (m_currentTool != null) {
-            m_currentTool.handleInput(e, this);
+            b = m_currentTool.handleInput(e, this);
         }
         // TODO what boolean should we really be returning??
-        return false;
+        return b;
     }
 
 }

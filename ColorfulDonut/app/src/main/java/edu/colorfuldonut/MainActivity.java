@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toolButtonClicked(View view) {
-        // TODO change tools
+        if(view.getId() == R.id.button3){
+            Toast.makeText(this, "Brush!", Toast.LENGTH_SHORT).show();
+            m_canvasView.m_currentTool = new Brush();
+        }
     }
 }

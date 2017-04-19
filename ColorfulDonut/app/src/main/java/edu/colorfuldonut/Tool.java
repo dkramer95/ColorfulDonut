@@ -13,7 +13,7 @@ public abstract class Tool {
 
     }
 
-    public abstract void handleInput(MotionEvent e, CanvasView canvasView);
+    public abstract boolean handleInput(MotionEvent e, CanvasView canvasView);
 
     public String getName() {
         return m_name;

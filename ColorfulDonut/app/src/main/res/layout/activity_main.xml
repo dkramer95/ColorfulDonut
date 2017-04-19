@@ -37,6 +37,7 @@
                     android:layout_margin="1dp"
                     android:layout_weight="1"
                     android:background="@android:color/holo_blue_light"
+                    android:onClick="toolButtonClicked"
                     android:text="Brush"
                     android:textColor="@color/White" />
 
