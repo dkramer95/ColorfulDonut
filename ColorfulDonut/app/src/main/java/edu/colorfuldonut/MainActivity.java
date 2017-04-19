@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         m_canvasView = (CanvasView)findViewById(R.id.canvas);
         m_toolbar = (ToolBar)findViewById(R.id.toolbar);
         m_toolbar.init();
+        m_canvasView.setToolbar(m_toolbar);
     }
 
     public void clearButtonClicked(View view) {
@@ -27,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toolButtonClicked(View view) {
-        if(view.getId() == R.id.button3){
-            Toast.makeText(this, "Brush!", Toast.LENGTH_SHORT).show();
-            m_canvasView.m_currentTool = new Brush();
-        }
+        Toast.makeText(this, "Brush!", Toast.LENGTH_SHORT).show();
     }
 }

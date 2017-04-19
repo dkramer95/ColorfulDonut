@@ -15,7 +15,7 @@ import android.widget.Toast;
  */
 
 public class CanvasView extends View {
-    protected Tool m_currentTool;
+    protected ToolBar m_toolbar;
     protected Canvas m_canvas;
     protected Bitmap m_bitmap;
     protected Paint m_paint;
@@ -32,8 +32,8 @@ public class CanvasView extends View {
 
         // some reason getWidth() has been returning zero, which will crash app
         // if we create a 0 sized bitmap
-        int width =  getWidth() == 0 ? 1920 : getWidth();
-        int height = getHeight() == 0 ? 1080 : getHeight();
+        int width =  getWidth() == 0 ? 2200 : getWidth();
+        int height = getHeight() == 0 ? 2200 : getHeight();
 
         m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
@@ -53,17 +53,20 @@ public class CanvasView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //canvas.drawBitmap(m_bitmap, 0, 0, m_paint);
         canvas.drawPath(m_path, m_paint);
     }
 
     public boolean onTouchEvent(MotionEvent e) {
         boolean b = false;
-        if (m_currentTool != null) {
-            b = m_currentTool.handleInput(e, this);
+        Tool tool = m_toolbar.getCurrentTool();
+        if (tool != null) {
+            b = tool.handleInput(e, this);
         }
         // TODO what boolean should we really be returning??
         return b;
     }
 
+    public void setToolbar(ToolBar toolbar) {
+        m_toolbar = toolbar;
+    }
 }

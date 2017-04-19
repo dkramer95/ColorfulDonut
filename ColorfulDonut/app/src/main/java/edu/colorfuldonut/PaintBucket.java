@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 
 public class PaintBucket extends Tool {
     @Override
-    public void handleInput(MotionEvent e, CanvasView canvasView) {
-
+    public boolean handleInput(MotionEvent e, CanvasView canvasView) {
+        return false;
     }
 }
