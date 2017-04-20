@@ -12,11 +12,13 @@ public class ToolFactory {
                 return new Brush();
             case "Paint Bucket":
                 return new PaintBucket();
+            case "Color Picker":
+                return new ColorPicker();
         }
         return null;
     }
 
     public String[] getToolNames() {
-        return new String[] { "Brush", "Paint Bucket" };
+        return new String[] { "Brush", "Paint Bucket", "Color Picker" };
     }
 }
