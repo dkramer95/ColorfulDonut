@@ -23,7 +23,7 @@ public class Brush extends Tool{
     public void init(){
         m_path = new Path();
         m_paint = new Paint();
-        m_paint.setColor(Color.RED);
+        m_paint.setColor(Color.BLACK);
         m_paint.setStyle(Paint.Style.STROKE);
         m_paint.setStrokeJoin(Paint.Join.ROUND);
         m_paint.setStrokeWidth(4f);
@@ -84,6 +84,7 @@ public class Brush extends Tool{
     public boolean handleInput(MotionEvent e, CanvasView canvasView) {
         float x = e.getX();
         float y = e.getY();
+        m_paint.setColor(canvasView.m_color);
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -98,8 +99,8 @@ public class Brush extends Tool{
             default:
                 return false;
         }
-        canvasView.m_paint = m_paint;
         canvasView.m_path = m_path;
+        canvasView.m_paint = m_paint;
         canvasView.invalidate();
         return true;
     }
