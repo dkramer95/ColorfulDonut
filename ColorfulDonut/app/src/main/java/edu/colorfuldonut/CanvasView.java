@@ -20,6 +20,7 @@ public class CanvasView extends View {
     protected Bitmap m_bitmap;
     protected Paint m_paint;
     protected Path m_path;
+    protected int m_color;
 
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -29,7 +30,8 @@ public class CanvasView extends View {
     protected void init() {
         m_paint = new Paint();
         m_path = new Path();
-
+        m_color = Color.BLACK;
+        m_paint.setColor(m_color);
         // some reason getWidth() has been returning zero, which will crash app
         // if we create a 0 sized bitmap
         int width =  getWidth() == 0 ? 2200 : getWidth();
