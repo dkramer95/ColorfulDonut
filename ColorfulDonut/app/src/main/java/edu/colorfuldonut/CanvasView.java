@@ -9,7 +9,6 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * Created by DavidKramer on 4/17/17.
@@ -38,14 +37,15 @@ public class CanvasView extends View {
 
         m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
-    }
+        m_canvas.drawColor(Color.WHITE);
 
-    public void saveImage() {
-
+        // default starting color
+        GlobalColor.set(Color.RED);
     }
 
     public void clear() {
         init();
+        invalidate();
     }
 
     public Bitmap getBitmap() {
@@ -54,7 +54,13 @@ public class CanvasView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawPath(m_path, m_paint);
+        m_paint.setColor(GlobalColor.get());
+        canvas.drawBitmap(m_bitmap, 0, 0, m_paint);
+        m_canvas.drawPath(m_path, m_paint);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        m_bitmap = bitmap;
     }
 
     public boolean onTouchEvent(MotionEvent e) {

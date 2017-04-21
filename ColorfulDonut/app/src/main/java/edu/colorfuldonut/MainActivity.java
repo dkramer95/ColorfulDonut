@@ -1,20 +1,27 @@
 package edu.colorfuldonut;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 public class MainActivity extends AppCompatActivity {
-//    public static ToolFactory toolFactory;
+    protected static final int OPEN_IMAGE = 0;
+
     protected CanvasView m_canvasView;
     protected ToolBar m_toolbar;
 
@@ -56,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
             colorButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Brush brushTool = (Brush)m_toolbar.getToolByName("Brush");
-                    brushTool.setColor(color);
+                    // singleton color so that other tools can use
+                    GlobalColor.set(color);
                 }
             });
         }
@@ -95,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void createTools() {
-        LinearLayout toolPanel = (LinearLayout)findViewById(R.id.toolPanel);
+        GridLayout toolPanel = (GridLayout) findViewById(R.id.toolPanel);
         int toolCount = toolPanel.getChildCount();
 
         for (int j = 0; j < toolCount; ++j) {
@@ -115,7 +122,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveButtonClicked(View view) {
-        Toast.makeText(this, "STILL NEED TO IMPLEMENT SAVING", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String filename = SimpleDateFormat.getDateInstance().toString();
+        Bitmap bitmap = m_canvasView.getBitmap();
+        MediaStore.Images.Media.insertImage(getContentResolver(), bitmap,
+                filename, "Colored Donut Drawing");
+        Toast.makeText(this, "Image saved to gallery", Toast.LENGTH_SHORT).show();
     }
 
     public void clearButtonClicked(View view) {
@@ -127,5 +139,34 @@ public class MainActivity extends AppCompatActivity {
         Button toolButton = (Button)view;
         String toolName = toolButton.getTag().toString();
         Toast.makeText(this, toolName, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openButtonClicked(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Open Image"), OPEN_IMAGE);
+    }
+
+    public void openImage(int resultCode, Intent data) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (data != null) {
+                try {
+                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    Toast.makeText(this, "Image loaded!", Toast.LENGTH_LONG).show();
+                    m_canvasView.setBitmap(bmp);
+                } catch (IOException e) {
+                    Toast.makeText(this, "Failed to open image", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case OPEN_IMAGE:
+                openImage(resultCode, data);
+                break;
+        }
     }
 }

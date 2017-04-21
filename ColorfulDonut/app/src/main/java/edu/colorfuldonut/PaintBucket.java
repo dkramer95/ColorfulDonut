@@ -4,12 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
-import android.util.Log;
 import android.view.MotionEvent;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by DavidKramer on 4/18/17.
@@ -50,17 +45,17 @@ public class PaintBucket extends Tool {
         //TODO: Uncomment comments below to give Bucket Button functionality.
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                //startTouch(x, y, m_path);
+                startTouch(x, y, m_path);
                 break;
             case MotionEvent.ACTION_UP:
-                //QueueLinearFloodFiller filler = new QueueLinearFloodFiller(bitmap, targetColor, m_paint.getColor());
-                //filler.prepare();
-                //filler.floodFill(x, y);
+                QueueLinearFloodFiller filler = new QueueLinearFloodFiller(bitmap, targetColor, GlobalColor.get());
+                filler.prepare();
+                filler.floodFill(x, y);
                 break;
             default:
                 return false;
         }
-        canvasView.m_paint = m_paint;
+//        canvasView.m_paint = m_paint;
         canvasView.invalidate();
         return true;
     }

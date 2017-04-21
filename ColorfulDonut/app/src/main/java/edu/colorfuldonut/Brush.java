@@ -78,6 +78,7 @@ public class Brush extends Tool{
     // when ACTION_UP stop touch
     private void upTouch(Path path) {
         path.lineTo(mX, mY);
+        path.reset();
     }
 
     @Override
