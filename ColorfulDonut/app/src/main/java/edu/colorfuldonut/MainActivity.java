@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         m_toolbar = new ToolBar();
         m_canvasView = (CanvasView)findViewById(R.id.canvas);
         m_canvasView.setToolbar(m_toolbar);
-
         initComponents();
     }
 
@@ -107,12 +107,13 @@ public class MainActivity extends AppCompatActivity {
 
         for (int j = 0; j < toolCount; ++j) {
             final Button toolButton = (Button)toolPanel.getChildAt(j);
-            String toolName = toolButton.getTag().toString();
+            final String toolName = toolButton.getTag().toString();
             final Tool tool = ToolFactory.create(toolName);
             m_toolbar.addTool(toolName, tool);
             toolButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    tool.m_name = toolName;
                     m_toolbar.setCurrentTool(tool);
                     toolButtonClicked(toolButton);
                 }

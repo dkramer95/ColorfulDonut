@@ -12,13 +12,13 @@ public class ToolFactory {
                 return new Brush();
             case "Paint Bucket":
                 return new PaintBucket();
-            case "Color Picker":
-                return new ColorPicker();
-        }
+            case "Pixel Grid":
+                return new PixelGridView();
+       }
         return null;
     }
 
     public static String[] getToolNames() {
-        return new String[] { "Brush", "Paint Bucket", "Color Picker" };
+        return new String[] { "Brush", "Paint Bucket", "Pixel Grid" };
     }
 }

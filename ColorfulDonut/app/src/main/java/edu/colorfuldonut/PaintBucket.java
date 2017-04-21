@@ -22,6 +22,7 @@ public class PaintBucket extends Tool {
     }
 
     public void init(){
+        m_name = "Paint Bucket";
         m_path = new Path();
         m_paint = new Paint();
         m_paint.setColor(Color.BLUE);

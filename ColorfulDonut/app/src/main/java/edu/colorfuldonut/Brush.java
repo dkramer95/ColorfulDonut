@@ -21,6 +21,7 @@ public class Brush extends Tool{
     }
 
     public void init(){
+        m_name = "Brush";
         m_path = new Path();
         m_paint = new Paint();
         m_paint.setColor(Color.BLACK);
