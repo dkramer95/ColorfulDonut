@@ -1,8 +1,5 @@
 package edu.colorfuldonut;
 
-import android.graphics.Paint;
-import android.provider.Settings;
-
 /**
  * Created by DavidKramer on 4/21/17.
  */
