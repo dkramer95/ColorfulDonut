@@ -6,7 +6,7 @@ package edu.colorfuldonut;
 
 public class ToolFactory {
 
-    public Tool create(String type) {
+    public static Tool create(String type) {
         switch (type) {
             case "Brush":
                 return new Brush();
@@ -18,7 +18,7 @@ public class ToolFactory {
         return null;
     }
 
-    public String[] getToolNames() {
+    public static String[] getToolNames() {
         return new String[] { "Brush", "Paint Bucket", "Color Picker" };
     }
 }
