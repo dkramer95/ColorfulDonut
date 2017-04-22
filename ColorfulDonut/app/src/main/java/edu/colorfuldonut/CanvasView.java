@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,10 +65,6 @@ public class CanvasView extends View {
         m_canvas.drawPath(m_path, m_paint);
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        m_bitmap = bitmap;
-    }
-
     public boolean onTouchEvent(MotionEvent e) {
         boolean b = false;
         Tool tool = m_toolbar.getCurrentTool();
@@ -79,5 +77,19 @@ public class CanvasView extends View {
 
     public void setToolbar(ToolBar toolbar) {
         m_toolbar = toolbar;
+    }
+
+    public void addImageBitmap(final Bitmap bmp) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // create bitmap so that it fits within our canvas and isn't stretched
+                Matrix m = new Matrix();
+                m.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()),
+                        new RectF(0, 0, getWidth(), getHeight()), Matrix.ScaleToFit.CENTER);
+                Bitmap scaledBitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, true);
+                m_canvas.drawBitmap(scaledBitmap, 0, 0, m_paint);
+            }
+        }).start();
     }
 }

@@ -193,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void clearButtonClicked(View view) {
         m_canvasView.clear();
-        Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show();
     }
 
     public void toolButtonClicked(View view) {
@@ -217,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     Toast.makeText(this, "Image loaded!", Toast.LENGTH_LONG).show();
-                    m_canvasView.setBitmap(bmp);
+                    m_canvasView.addImageBitmap(bmp);
                 } catch (IOException e) {
                     Toast.makeText(this, "Failed to open image", Toast.LENGTH_LONG).show();
                 }
