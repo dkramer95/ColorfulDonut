@@ -103,7 +103,6 @@ public class PixelGridView extends Tool {
             int column = (int)(e.getX() / cellWidth);
             int row = (int)(e.getY() / cellHeight);
 
-            //cellChecked[column][row] = !cellChecked[column][row];
             canvasView.invalidate();
         }
 

@@ -34,7 +34,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
@@ -97,15 +97,6 @@
                         android:tag="Brush" />
 
                     <Button
-                        android:id="@+id/eraserButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/eraser1"
-                        android:padding="10dp"
-                        android:tag="Paint Bucket" />
-
-                    <Button
                         android:id="@+id/gridButton"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -115,6 +106,26 @@
                         android:background="@drawable/grid1"
                         android:padding="10dp"
                         android:tag="Pixel Grid" />
+
+                    <Button
+                        android:id="@+id/bucketButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/bucket1"
+                        android:padding="10dp"
+                        android:tag="Paint Bucket" />
+
+                    <Button
+                        android:id="@+id/pencilButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_column="1"
+                        android:layout_margin="6dp"
+                        android:layout_row="0"
+                        android:background="@drawable/pencil1"
+                        android:padding="10dp"
+                        android:tag="Pencil" />
 
                 </GridLayout>
 

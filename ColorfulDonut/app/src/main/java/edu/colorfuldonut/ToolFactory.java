@@ -14,6 +14,8 @@ public class ToolFactory {
                 return new PaintBucket();
             case "Pixel Grid":
                 return new PixelGridView();
+            case "Pencil":
+                return new Pencil();
        }
         return null;
     }

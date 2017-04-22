@@ -27,7 +27,6 @@ public class CanvasView extends View {
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
         init();
-        m_pixelGrid = new PixelGridView(1200, 1200, m_bitmap.getWidth()/30, m_bitmap.getHeight()/30, this);
     }
 
     protected void init() {
@@ -43,10 +42,9 @@ public class CanvasView extends View {
         m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
         m_canvas.drawColor(Color.WHITE);
-
-        //pixel grid stuff
         // default starting color
         GlobalColor.set(Color.RED);
+        m_pixelGrid = new PixelGridView(1200, 1200, m_bitmap.getWidth()/30, m_bitmap.getHeight()/30, this);
     }
 
     public void clear() {
