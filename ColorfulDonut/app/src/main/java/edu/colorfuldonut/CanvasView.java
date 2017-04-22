@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,7 +23,6 @@ public class CanvasView extends View {
     protected PixelGridView m_pixelGrid;
     protected Paint m_paint;
     protected Path m_path;
-    protected int m_color;
 
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -32,8 +32,10 @@ public class CanvasView extends View {
     protected void init() {
         m_paint = new Paint();
         m_path = new Path();
-        m_color = Color.BLACK;
-        m_paint.setColor(m_color);
+
+        // default starting color
+        GlobalColor.set(Color.RED);
+        m_paint.setColor(GlobalColor.get());
         // some reason getWidth() has been returning zero, which will crash app
         // if we create a 0 sized bitmap
         int width =  getWidth() == 0 ? 1200 : getWidth();
@@ -42,12 +44,10 @@ public class CanvasView extends View {
         m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
         m_canvas.drawColor(Color.WHITE);
-        // default starting color
-        GlobalColor.set(Color.RED);
-        m_pixelGrid = new PixelGridView(1200, 1200, m_bitmap.getWidth()/30, m_bitmap.getHeight()/30, this);
     }
 
     public void clear() {
+        m_bitmap.recycle();
         init();
         invalidate();
         m_pixelGrid = new PixelGridView(m_bitmap.getWidth(), m_bitmap.getHeight(), m_bitmap.getWidth()/30, m_bitmap.getHeight()/30, this);
@@ -64,10 +64,6 @@ public class CanvasView extends View {
         m_canvas.drawPath(m_path, m_paint);
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        m_bitmap = bitmap;
-    }
-
     public boolean onTouchEvent(MotionEvent e) {
         boolean b = false;
         Tool tool = m_toolbar.getCurrentTool();
@@ -80,5 +76,19 @@ public class CanvasView extends View {
 
     public void setToolbar(ToolBar toolbar) {
         m_toolbar = toolbar;
+    }
+
+    public void addImageBitmap(final Bitmap bmp) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // create bitmap so that it fits within our canvas and isn't stretched
+                Matrix m = new Matrix();
+                m.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()),
+                        new RectF(0, 0, getWidth(), getHeight()), Matrix.ScaleToFit.CENTER);
+                Bitmap scaledBitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, true);
+                m_canvas.drawBitmap(scaledBitmap, 0, 0, m_paint);
+            }
+        }).start();
     }
 }

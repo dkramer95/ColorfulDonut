@@ -43,7 +43,6 @@ public class PaintBucket extends Tool {
         int y = (int) e.getY();;
         Bitmap bitmap = canvasView.getBitmap();
         int targetColor = bitmap.getPixel(mX,mY);
-        //TODO: Uncomment comments below to give Bucket Button functionality.
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startTouch(x, y, m_path);
@@ -56,7 +55,7 @@ public class PaintBucket extends Tool {
             default:
                 return false;
         }
-//        canvasView.m_paint = m_paint;
+        canvasView.m_paint = m_paint;
         canvasView.invalidate();
         return true;
     }

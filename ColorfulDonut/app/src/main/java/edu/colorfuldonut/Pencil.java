@@ -86,7 +86,7 @@ class Pencil extends Tool {
     public boolean handleInput(MotionEvent e, CanvasView canvasView) {
         float x = e.getX();
         float y = e.getY();
-        m_paint.setColor(canvasView.m_color);
+        m_paint.setColor(canvasView.m_paint.getColor());
         if(m_paint.getStrokeWidth() != 1f) {
             m_paint.setStrokeWidth(1f);
         }
