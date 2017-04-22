@@ -103,9 +103,9 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_margin="6dp"
+                        android:background="@drawable/bucket"
                         android:backgroundTint="@color/selectedButtonBG"
                         android:backgroundTintMode="add"
-                        android:background="@drawable/eraser1"
                         android:padding="10dp"
                         android:tag="Paint Bucket" />
 

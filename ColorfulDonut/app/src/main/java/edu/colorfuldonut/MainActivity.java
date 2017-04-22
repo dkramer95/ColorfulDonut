@@ -14,6 +14,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
+        createShakeListener();
+        animateIn();
     }
 
     protected void onResume() {
@@ -54,14 +57,27 @@ public class MainActivity extends AppCompatActivity {
         createTools();
         createSlider();
         createColors();
-        createShakeListener();
+    }
+
+    protected void animateIn() {
+        m_canvasView.setAlpha(0f);
+
+        LinearLayout toolbar = (LinearLayout)findViewById(R.id.toolbar);
+        toolbar.animate().translationYBy(-1000f).alpha(0f).setDuration(0).start();
+        toolbar.animate().translationYBy(1000f).alpha(1f).setDuration(1250).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                m_canvasView.clear();
+                m_canvasView.animate().alpha(1f).setDuration(750).start();
+            }
+        }).start();
     }
 
     protected void createShakeListener() {
         m_shakeToClear = new DeviceShake(this, new DeviceShake.ShakeCallback() {
             @Override
             public void onShake() {
-                m_canvasView.clear();
+                animatedCanvasClear();
             }
         });
     }
@@ -192,7 +208,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clearButtonClicked(View view) {
-        m_canvasView.clear();
+        animatedCanvasClear();
+    }
+
+    public void animatedCanvasClear() {
+        m_canvasView.animate().alpha(0f).setDuration(750).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                m_canvasView.clear();
+                m_canvasView.animate().alpha(1f).setDuration(300).start();
+            }
+        }).start();
     }
 
     public void toolButtonClicked(View view) {
