@@ -1,5 +1,7 @@
 package edu.colorfuldonut;
 
+import android.util.Log;
+
 /**
  * Created by DavidKramer on 4/21/17.
  */
@@ -24,5 +26,6 @@ public class GlobalColor {
 
     public static void set(int color) {
         getInstance().m_colorValue = color;
+        Log.e("INFO", "Global color set to: " + color);
     }
 }

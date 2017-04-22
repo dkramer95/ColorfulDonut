@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     protected static final int OPEN_IMAGE = 0;
@@ -92,24 +93,13 @@ public class MainActivity extends AppCompatActivity {
         int[] colors = new int[] { Color.RED, Color.YELLOW, Color.GREEN,
                 Color.BLUE, Color.BLACK, Color.WHITE };
 
-        class RadioButtonController {
-            private RadioButton m_activeButton;
-
-            void setActiveButton(RadioButton button) {
-                if (m_activeButton != null) {
-                    m_activeButton.setChecked(false);
-                }
-                m_activeButton = button;
-                m_activeButton.setChecked(true);
-            }
-        }
-
         final RadioButtonController group = new RadioButtonController();
 
         for (int j = 0; j < colorCount; ++j) {
             final int color = colors[j];
 
             final RadioButton colorButton = (RadioButton) colorPanel.getChildAt(j);
+            group.addButton(colorButton);
             Drawable drawable = getResources().getDrawable(R.drawable.circle);
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 
@@ -124,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        group.setActiveButton((RadioButton)colorPanel.getChildAt(0));
+        group.setActiveButton((RadioButton)colorPanel.getChildAt(4));
+        GlobalColor.set(colors[4]);
     }
 
 
@@ -156,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
+
+        // make sure brush size matches the slider
+        Brush brush = (Brush)m_toolbar.getToolByName("Brush");
+        brush.setSize(brushSizeSlider.getProgress());
     }
 
     protected void createTools() {
@@ -195,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         controller.setActiveButton((AppCompatButton)toolPanel.getChildAt(0));
-        m_toolbar.finishInit();
+        m_toolbar.setCurrentTool(m_toolbar.getToolByName(ToolFactory.getToolNames()[0]));
     }
 
     public void saveButtonClicked(View view) {
