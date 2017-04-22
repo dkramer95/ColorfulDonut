@@ -3,7 +3,6 @@ package edu.colorfuldonut;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.Queue;

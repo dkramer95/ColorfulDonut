@@ -86,7 +86,6 @@ public class Brush extends Tool{
     public boolean handleInput(MotionEvent e, CanvasView canvasView) {
         float x = e.getX();
         float y = e.getY();
-        m_paint.setColor(canvasView.m_color);
 
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:

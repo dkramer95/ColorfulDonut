@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,7 +21,6 @@ public class CanvasView extends View {
     protected PixelGridView m_pixelGrid;
     protected Paint m_paint;
     protected Path m_path;
-    protected int m_color;
 
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -33,8 +31,10 @@ public class CanvasView extends View {
     protected void init() {
         m_paint = new Paint();
         m_path = new Path();
-        m_color = Color.BLACK;
-        m_paint.setColor(m_color);
+
+        // default starting color
+        GlobalColor.set(Color.BLACK);
+        m_paint.setColor(GlobalColor.get());
         // some reason getWidth() has been returning zero, which will crash app
         // if we create a 0 sized bitmap
         int width =  getWidth() == 0 ? 1200 : getWidth();
@@ -43,13 +43,10 @@ public class CanvasView extends View {
         m_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         m_canvas = new Canvas(m_bitmap);
         m_canvas.drawColor(Color.WHITE);
-
-        //pixel grid stuff
-        // default starting color
-        GlobalColor.set(Color.RED);
     }
 
     public void clear() {
+        m_bitmap.recycle();
         init();
         invalidate();
         m_pixelGrid = new PixelGridView(m_bitmap.getWidth(), m_bitmap.getHeight(), m_bitmap.getWidth()/30, m_bitmap.getHeight()/30, this);

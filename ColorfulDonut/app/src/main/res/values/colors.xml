@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#ce3939</color>
     <color name="colorAccent">#f44646</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
     <color name="toolbarBG">#9b1717</color>
     <color name="normalButtonBG">#b22323</color>
-    <color name="selectedButtonBG">#e22d2d</color>
+    <color name="selectedButtonBG">#88cccccc</color>
 </resources>
