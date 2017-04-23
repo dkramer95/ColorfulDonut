@@ -33,16 +33,9 @@ public class CanvasView extends View {
         m_paint = new Paint();
         m_path = new Path();
 
-        // default starting color
-// <<<<<<< Updated upstream
-//         GlobalColor.set(Color.RED);
-//         m_paint.setColor(GlobalColor.get());
-//=======
-       GlobalColor.set(Color.BLACK);
-       m_paint.setColor(GlobalColor.get());
-// >>>>>>> Stashed changes
-        // some reason getWidth() has been returning zero, which will crash app
-        // if we create a 0 sized bitmap
+        GlobalColor.set(Color.BLACK);
+        m_paint.setColor(GlobalColor.get());
+
         int width =  getWidth() == 0 ? 1200 : getWidth();
         int height = getHeight() == 0 ? 1200 : getHeight();
 

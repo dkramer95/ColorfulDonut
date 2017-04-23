@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     protected static final int OPEN_IMAGE = 0;
@@ -190,11 +189,12 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         controller.setActiveButton((AppCompatButton)toolPanel.getChildAt(0));
-        m_toolbar.setCurrentTool(m_toolbar.getToolByName(ToolFactory.getToolNames()[0]));
+        m_toolbar.finishInit();
+        Tool activeTool = m_toolbar.getToolByName(ToolFactory.getToolNames()[0]);
+        m_toolbar.setCurrentTool(activeTool);
     }
 
     public void saveButtonClicked(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String filename = SimpleDateFormat.getDateInstance().toString();
         Bitmap bitmap = m_canvasView.getBitmap();
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap,
@@ -218,8 +218,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void toolButtonClicked(View view) {
         Button toolButton = (Button)view;
-        Drawable drawable = toolButton.getBackground();
-
         String toolName = toolButton.getTag().toString();
         Toast.makeText(this, toolName, Toast.LENGTH_SHORT).show();
     }
